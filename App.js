@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 import "./App.css";
 import "styled-components";
@@ -45,9 +45,44 @@ const HelloGreating = () => {
     );
 };
 
+const Message = (props) => {
+    return <h2>The counter is {props.counter}</h2>;
+};
+
+class Counter extends Component {
+    state = {
+        counter: 0,
+    };
+
+    changeCounter = () => {
+        this.setState(({ counter }) => ({
+            counter: counter + 1,
+        }));
+    };
+
+    render() {
+        return (
+            <>
+                <button
+                    className={"btn btn-primary"}
+                    onClick={this.changeCounter}
+                >
+                    click me too
+                </button>
+                {/* Передаем метод render который находится ниже с определенными props */}
+                {this.props.render(this.state.counter)}
+                {/* далее можно добавлять еще и еще propsов */}
+            </>
+        );
+    }
+}
+
 const App = () => {
     return (
         <Wrapper>
+            {/* // Метод render.props() который содержит в себе определенный props */}
+            <Counter render={(counter) => <Message counter={counter} />} />
+
             {/* Wrapper наследует компонент HelloGreating и модифицирует его (такой метод применяется куда реже чем обычная композиция) */}
             <HelloGreating />
             {/* Компонент DynamicGreating получает два дочерних элемента (h2)
