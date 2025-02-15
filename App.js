@@ -32,9 +32,24 @@ const DynamicGreating = (props) => {
     );
 };
 
+// Новый компонент HelloGreating
+const HelloGreating = () => {
+    return (
+        <div style={{ width: "600px", margin: "0 auto" }}>
+            <DynamicGreating color={"primary"}>
+                {/* Эти элементы будут переданы как props.children */}
+                <h2>Hello World!</h2>
+                <h2>Here we test React-propsChildren</h2>
+            </DynamicGreating>
+        </div>
+    );
+};
+
 const App = () => {
     return (
         <Wrapper>
+            {/* Wrapper наследует компонент HelloGreating и модифицирует его (такой метод применяется куда реже чем обычная композиция) */}
+            <HelloGreating />
             {/* Компонент DynamicGreating получает два дочерних элемента (h2)
             <DynamicGreating color={"primary"}>
                 Эти элементы будут переданы как props.children
